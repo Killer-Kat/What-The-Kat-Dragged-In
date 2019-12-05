@@ -27,5 +27,6 @@ elif grade >= 60:
  print ("Your grade is D")
 elif grade >= 0:
  print ("FAIL")
- 
+else:
+ print ("ERROR")
 input("Press Enter to close")
