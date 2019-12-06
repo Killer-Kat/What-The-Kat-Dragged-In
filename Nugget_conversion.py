@@ -9,14 +9,13 @@
 Nuggets = float(input("Amount of Gold Nuggets to Convert "))
 Price = 673.37 #This is the price of 0.455729 troy ounces of gold as of 12/6/2019
 
+#This is where the magic happens, and by magic I mean math.
 Dollars = Nuggets * Price
 print("Thats $", end="")
 print (Dollars)
 G2C = Dollars / 0.22475
 
-print(Nuggets, end="")
-print(" Gold nuggets is worth ", end="")
-print (G2C, end="")
-print (" Chicken Nuggets")
+#This just prints the final statement.
+print (str(Nuggets) + " Gold nuggets is worth " + str(G2C) + " Chicken Nuggets" )
 
 input("Press Enter to close")
