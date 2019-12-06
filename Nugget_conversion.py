@@ -13,6 +13,10 @@ Dollars = Nuggets * Price
 print("Thats $", end="")
 print (Dollars)
 G2C = Dollars / 0.22475
-print (G2C)
 
-input()
+print(Nuggets, end="")
+print(" Gold nuggets is worth ", end="")
+print (G2C, end="")
+print (" Chicken Nuggets")
+
+input("Press Enter to close")
