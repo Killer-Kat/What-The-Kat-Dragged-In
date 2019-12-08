@@ -7,9 +7,10 @@ Current_Points = float(input("Input current Points in class: "))
 Total_Points = float(input("Input total points possible: "))
 percent = ((Current_Points / Total_Points) * 100)
 
-#grade = float(input("Enter Your Grade: "))
 grade = percent
+print ("You got %" + str(percent))
 
+#These if statemnts print what grade you got.
 if grade >= 93:
  print ("Your grade is A!")
 elif grade >= 90:
@@ -33,7 +34,7 @@ elif grade >= 63:
 elif grade >= 60:
  print ("Your grade is D")
 elif grade >= 0:
- print ("FAIL")
+ print ("Your grade is an F, That means you fail.")
 else:
  print ("ERROR")
  
