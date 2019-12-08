@@ -2,16 +2,23 @@
 #I offhandedly tried asking siri to tell me what the grade corresponding to a percent was and I was suprised that it didnt.
 #So I wrote this for fun, feel free to use it as long as you arent Apple.
 
+print ("This tool will calculate your final grade in a class based on your current score.")
 #this calculates a percentage based on user input
 Current_Points = float(input("Input current Points in class: "))
 Total_Points = float(input("Input total points possible: "))
-percent = ((Current_Points / Total_Points) * 100)
+if Total_Points == 0:
+ print ("If the maxium points available are zero that means you passed.") 
+ percent = 100
+else:
+ percent = ((Current_Points / Total_Points) * 100)
 
 grade = percent
 print ("You got %" + str(percent))
 
 #These if statemnts print what grade you got.
-if grade >= 93:
+if grade >= 100:
+ print ("Your grade is A+, Impressive!")
+elif grade >= 93:
  print ("Your grade is A!")
 elif grade >= 90:
  print ("Your grade is A-")
