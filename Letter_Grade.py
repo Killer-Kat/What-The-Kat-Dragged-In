@@ -41,7 +41,7 @@ elif grade >= 63:
 elif grade >= 60:
  print ("Your grade is D")
 elif grade >= 0:
- print ("Your grade is an F, That means you fail.")
+ print ("Your grade is an F, That means you fail. You need %" + str((60 - percent)) + " more to pass.")
 else:
  print ("ERROR")
  
