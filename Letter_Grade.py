@@ -13,7 +13,7 @@ else:
  percent = ((Current_Points / Total_Points) * 100)
 
 grade = percent
-print ("You got %" + str(percent))
+print ("You got %" + str(percent)[:5] )
 
 #These if statemnts print what grade you got.
 if grade >= 100:
@@ -41,7 +41,7 @@ elif grade >= 63:
 elif grade >= 60:
  print ("Your grade is D")
 elif grade >= 0:
- print ("Your grade is an F, That means you fail. You need %" + str((60 - percent)) + " more to pass.")
+ print ("Your grade is an F, That means you fail. You need %" + str((60 - percent))[:5] + " more to pass.")
 else:
  print ("ERROR")
  
