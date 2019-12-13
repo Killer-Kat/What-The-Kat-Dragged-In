@@ -12,10 +12,11 @@ Price = 673.37 #This is the price of 0.455729 troy ounces of gold as of 12/6/201
 #This is where the magic happens, and by magic I mean math.
 Dollars = Nuggets * Price
 print("Thats $", end="")
-print (Dollars)
+print (Dollars, end="")
+print (" worth of gold.")
 G2C = Dollars / 0.22475
 
 #This just prints the final statement.
-print (str(Nuggets) + " Gold nuggets is worth " + str(G2C) + " Chicken Nuggets" )
+print (str(Nuggets) + " Gold nuggets is worth " + str(round(G2C)) + " Chicken Nuggets" )
 
 input("Press Enter to close")
