@@ -1,5 +1,5 @@
 #Gold to chicken nugget conversion.
-#Version 2.0, Made by Killer-Kat
+#Version 2.1, Made by Killer-Kat
 #In order to measure the conversion between gold nuggets and chicken nuggets we need to establish a few things.
 #Gold is measured in troy ounces and one troy ounce is 1.09714 regular ounces.
 #In this instance we are going to convert on a one to one mass ratio.
@@ -23,6 +23,7 @@ gold_price = float("".join(filter(lambda d: str.isdigit(d) or d == '.', str(cont
 Choice = int(input("Choose an option: 1: Gold Nuggets to Chicken Nuggets, 2: Chicken Nuggets to Gold Nuggets. "))
 gold_nugget_price = (gold_price * 0.455729) #This is the price of 0.455729 troy ounces of gold
 Forty_Piece = 0.22475 #This is the price of one chicken nugget based on the mcdonald's 40 piece meal.
+#Here we are defining the conversions, this helps when trying to add to the program
 def Gold2Chicken():
  #Gold to chicken Nugget conversion.
  Nuggets = float(input("Amount of Gold Nuggets to Convert "))
@@ -31,13 +32,15 @@ def Gold2Chicken():
  print (round(Dollars), end="")
  print (" worth of gold.")
  G2C = Dollars / Forty_Piece #This is where the magic happens, and by magic I mean math.
- #This part uses the users choice to convert either gold to chicken or chicken to gold.
-if Choice == 1:
- Gold2Chicken()
  print (str(Nuggets) + " Gold nuggets is worth " + str(round(G2C)) + " Chicken Nuggets" )
-elif Choice == 2:
+def Chicken2Gold():
  Nuggets = float(input("Amount of Chicken Nuggets to Convert "))
  Dollars = Nuggets * Forty_Piece
  C2G = Dollars / gold_nugget_price
- print(C2G)
+ print(str(Nuggets) + " Chicken Nuggets is worth " + str(C2G) + " Gold Nuggets") 
+ #This part uses the users choice to convert either gold to chicken or chicken to gold.
+if Choice == 1:
+ Gold2Chicken()
+elif Choice == 2:
+ Chicken2Gold()
 input("Press Enter to close")
