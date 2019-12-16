@@ -23,8 +23,7 @@ gold_price = float("".join(filter(lambda d: str.isdigit(d) or d == '.', str(cont
 Choice = int(input("Choose an option: 1: Gold Nuggets to Chicken Nuggets, 2: Chicken Nuggets to Gold Nuggets. "))
 gold_nugget_price = (gold_price * 0.455729) #This is the price of 0.455729 troy ounces of gold
 Forty_Piece = 0.22475 #This is the price of one chicken nugget based on the mcdonald's 40 piece meal.
-#This part uses the users choice to convert either gold to chicken or chicken to gold.
-if Choice == 1:
+def Gold2Chicken():
  #Gold to chicken Nugget conversion.
  Nuggets = float(input("Amount of Gold Nuggets to Convert "))
  Dollars = Nuggets * gold_nugget_price
@@ -32,7 +31,9 @@ if Choice == 1:
  print (round(Dollars), end="")
  print (" worth of gold.")
  G2C = Dollars / Forty_Piece #This is where the magic happens, and by magic I mean math.
-
+ #This part uses the users choice to convert either gold to chicken or chicken to gold.
+if Choice == 1:
+ Gold2Chicken()
  print (str(Nuggets) + " Gold nuggets is worth " + str(round(G2C)) + " Chicken Nuggets" )
 elif Choice == 2:
  Nuggets = float(input("Amount of Chicken Nuggets to Convert "))
