@@ -1,5 +1,5 @@
 #Gold to chicken nugget conversion.
-#Version 3.0, Made by Killer-Kat
+#Version 3.2, Made by Killer-Kat
 #In order to measure the conversion between gold nuggets and chicken nuggets we need to establish a few things.
 #Gold is measured in troy ounces and one troy ounce is 1.09714 regular ounces.
 #In this instance we are going to convert on a one to one mass ratio.
@@ -28,28 +28,39 @@ def Gold2Chicken():
  #Gold to chicken Nugget conversion.
  Nuggets = float(Nug_input.get())
  Dollars = Nuggets * gold_nugget_price
- print("Thats $", end="")
- print (round(Dollars), end="")
- print (" worth of gold.")
  G2C = Dollars / Forty_Piece #This is where the magic happens, and by magic I mean math.
- print (str(Nuggets) + " Gold nuggets is worth " + str(round(G2C)) + " Chicken Nuggets" )
+ output.delete(0.0, END) #This clears the output text box so the next line can fill it.
+ output.insert(END, (str(Nuggets) + " Gold nuggets is worth " + str(round(G2C)) + " Chicken Nuggets" ))
+ labelText.set("Thats $" + str(round(Dollars, 2)) +" worth of nuggets!")
 def Chicken2Gold():
  Nuggets = float(Nug_input.get())
  Dollars = Nuggets * Forty_Piece
  C2G = Dollars / gold_nugget_price
- print(str(Nuggets) + " Chicken Nuggets is worth " + str(C2G) + " Gold Nuggets") 
- 
-#This part uses the users choice to convert either gold to chicken or chicken to gold.
+ output.delete(0.0, END)
+ output.insert(END, (str(Nuggets) + " Chicken Nuggets is worth " + str(C2G) + " Gold Nuggets"))
+ labelText.set("Thats $ " + str(round(Dollars, 2)) + " worth of nuggets!")
+
+#This is the GUI
 root = Tk()
 root.title("Gold To Chicken Nuggets")
+root.geometry("325x150")
+root.resizable(0,0)
 
 label_1 = Label(root, text="Input Amount of Nuggets:")
-label_1.grid(row=0)
+label_1.grid(row=0, sticky=W)
 Nug_input = Entry(root)
-Nug_input.grid(row=0, column=1)
+Nug_input.grid(row=0, column=1, sticky=W)
+
+labelText = StringVar() #Sets a variable that can be used as the text in the label
+label_2 = Label(root, textvariable=labelText)
+label_2.grid(row=2, columnspan=2)
+
 button_1 = Button(root, text="Convert Gold to chicken", command=Gold2Chicken)
 button_1.grid(row=1)
 button_2 = Button(root, text="Convert Chicken to Gold", command=Chicken2Gold)
 button_2.grid(row=1, column=1)
+
+output = Text(root, width=35, height=2, wrap=WORD, background="white")
+output.grid(row=4, column=0, columnspan=2)
 
 root.mainloop()
