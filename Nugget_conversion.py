@@ -1,14 +1,15 @@
 #Gold to chicken nugget conversion.
-#Version 3.2, Made by Killer-Kat
+#Version 3.3, Made by Killer-Kat
 #In order to measure the conversion between gold nuggets and chicken nuggets we need to establish a few things.
 #Gold is measured in troy ounces and one troy ounce is 1.09714 regular ounces.
 #In this instance we are going to convert on a one to one mass ratio.
 #As of 12/6/2019 McNuggets are 40 for $8.99 USD and they average 0.5 ounces per nugget.
 #Thats 0.455729 Troy Ounces for our gold nuggets.
 import re
-from bs4 import BeautifulSoup
-from urllib.request import urlopen
-from tkinter import *
+from bs4 import BeautifulSoup #This helps parse the HTML data
+from urllib.request import urlopen #this is needed to get the HTML data
+from tkinter import * #this is needed for the gui
+import tkinter.messagebox #this is used for the error messages
 #this part gets the web page and scrapes it for its html data.
 my_url = "https://www.jmbullion.com/charts/gold-price/"
 gold_url = urlopen(my_url)
@@ -26,19 +27,27 @@ Forty_Piece = 0.22475 #This is the price of one chicken nugget based on the mcdo
 
 def Gold2Chicken():
  #Gold to chicken Nugget conversion.
- Nuggets = float(Nug_input.get())
- Dollars = Nuggets * gold_nugget_price
- G2C = Dollars / Forty_Piece #This is where the magic happens, and by magic I mean math.
- output.delete(0.0, END) #This clears the output text box so the next line can fill it.
- output.insert(END, (str(Nuggets) + " Gold nuggets is worth " + str(round(G2C)) + " Chicken Nuggets" ))
- labelText.set("Thats $" + str(round(Dollars, 2)) +" worth of nuggets!")
+ try:
+  Nuggets = float(Nug_input.get())
+  Dollars = Nuggets * gold_nugget_price
+  G2C = Dollars / Forty_Piece #This is where the magic happens, and by magic I mean math.
+ except ValueError:
+  tkinter.messagebox.showinfo("Input error", "Error, please input a numerical value.")
+ else:
+  output.delete(0.0, END) #This clears the output text box so the next line can fill it.
+  output.insert(END, (str(Nuggets) + " Gold nuggets is worth " + str(round(G2C)) + " Chicken Nuggets" ))
+  labelText.set("Thats $" + str(round(Dollars, 2)) +" worth of nuggets!")
 def Chicken2Gold():
- Nuggets = float(Nug_input.get())
- Dollars = Nuggets * Forty_Piece
- C2G = Dollars / gold_nugget_price
- output.delete(0.0, END)
- output.insert(END, (str(Nuggets) + " Chicken Nuggets is worth " + str(C2G) + " Gold Nuggets"))
- labelText.set("Thats $ " + str(round(Dollars, 2)) + " worth of nuggets!")
+ try:
+  Nuggets = float(Nug_input.get())
+  Dollars = Nuggets * Forty_Piece
+  C2G = Dollars / gold_nugget_price
+ except ValueError:
+  tkinter.messagebox.showinfo("Input error", "Error, please input a numerical value.")
+ else:
+  output.delete(0.0, END)
+  output.insert(END, (str(Nuggets) + " Chicken Nuggets is worth " + str(round(C2G, 5)) + " Gold Nuggets"))
+  labelText.set("Thats $ " + str(round(Dollars, 2)) + " worth of nuggets!")
 
 #This is the GUI
 root = Tk()
@@ -55,7 +64,7 @@ labelText = StringVar() #Sets a variable that can be used as the text in the lab
 label_2 = Label(root, textvariable=labelText)
 label_2.grid(row=2, columnspan=2)
 
-button_1 = Button(root, text="Convert Gold to chicken", command=Gold2Chicken)
+button_1 = Button(root, text="Convert Gold to Chicken", command=Gold2Chicken)
 button_1.grid(row=1)
 button_2 = Button(root, text="Convert Chicken to Gold", command=Chicken2Gold)
 button_2.grid(row=1, column=1)
