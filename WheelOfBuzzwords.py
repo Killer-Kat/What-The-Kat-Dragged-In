@@ -10,5 +10,13 @@ products = [ "IPS System", "IOT Device", "Smart Fridge", "Teleconferencing Servi
 print("Hello and wellcome to, WHEEL, OF, BUZZWORDS!!!")
 print("Silicon Valley's hottest new gameshow!")
 
-print("Looks like you are making a " + buzzwords[random.randrange(0, 7, 1)] + " & " + buzzwords[random.randrange(0, 7, 1)] + " " + products[random.randrange(0, 8, 1)])
+def Spin():
+ buzz1 = buzzwords[random.randrange(0, 7, 1)]
+ buzz2 = buzzwords[random.randrange(0, 7, 1)]
+ if buzz1 == buzz2:
+  print("Looks like you are making a " + buzz1 + " & " + buzz2 + " " + products[random.randrange(0, 8, 1)] + " you must really like "  + buzz1 +"!")
+ else: 
+  print ("Looks like you are making a " + buzz1 + " & " + buzz2 + " " + products[random.randrange(0, 8, 1)] + ".")
+Spin()
+
 input()
