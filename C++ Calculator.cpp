@@ -16,14 +16,12 @@ int main()
     std::cout << "Input Second Number: \n";
     std::cin >> number02;
 
-    //This part doesnt work and I dont know why
-    /*
-    if (choice == 4 and (number01 or number02 == 0)) {
+    //Stops the user from dividing by zero
+    if (choice == 4 and number02 == 0) {
         std::cout << "Nice try, you cannot devide by zero!\n";
-        exit;
+        std::exit;
     } 
-    */
-
+    
     //The maths
     //I know this could be written better but I dont know the langauge well enough yet.
     if (choice == 1) {
