@@ -23,21 +23,21 @@ int main()
     } 
     
     //The maths
-    //I know this could be written better but I dont know the langauge well enough yet.
-    if (choice == 1) {
+    switch (choice) {
+    case 1:
         std::cout << number01 + number02;
-    }
-    else if (choice == 2) {
+        break;
+    case 2:
         std::cout << number01 - number02;
-    }
-    else if (choice == 3) {
+        break;
+    case 3:
         std::cout << number01 * number02;
-    }
-    else if (choice == 4) {
+        break;
+    case 4:
         std::cout << number01 / number02;
-    }
-    else {
+        break;
+    default:
         std::cout << "Error, invalid selection";
+        break;
     }
-
 }
