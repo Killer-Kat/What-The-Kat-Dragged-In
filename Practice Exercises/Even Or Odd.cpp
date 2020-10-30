@@ -5,7 +5,7 @@
 
 //This Program generates random numbers and then lists if they are even or odd.
 int main() {
-    //seeds the sudo random number generator with the time, not the best choice but it works well enough for this use case.
+    //seeds the pseudo random number generator with the time, not the best choice but it works well enough for this use case.
     srand((unsigned)time(0));
 
     int odd = 0, even = 0, input = 0;
