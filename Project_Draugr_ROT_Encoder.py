@@ -2,6 +2,7 @@
 #Takes text and ROT value as arguments and encodes the text to the rotation value.
 def Main(Text_Input,Rotation):
     Output_String = ""
+    Is_Caps = False
     Letter_Value = {
      "A": 1,
      "B": 2,
@@ -59,15 +60,19 @@ def Main(Text_Input,Rotation):
     26 : "Z",
     }
     for i in Text_Input:
-        x = Letter_Value.get(i, "&")
+        x = Letter_Value.get(i.upper(), "&") #The & here is just a placeholder for something not in the dictionary
         if type(x) == int:
+            if i.upper() == i:
+                Is_Caps = True
+            else : Is_Caps = False    
             x = x + Rotation
             if x > 26 :
                 x = x -26
-            Output_String = Output_String + Place_Value[x]
-            print(Output_String)
+            if Is_Caps == True:
+                Output_String = Output_String + Place_Value[x]
+            else: 
+                Output_String = Output_String + Place_Value[x].lower()
         else:
             Output_String = Output_String + i
-            print(Output_String)
     print(Output_String)
 
