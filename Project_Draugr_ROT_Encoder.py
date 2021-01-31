@@ -1,5 +1,6 @@
 #Project Draugr Variable ROT encoder made by Killer-Kat on github 1/31/2021
 #Takes text and ROT value as arguments and encodes the text to the rotation value.
+#The name comes from the Scandinavian Undead, as undead are rotten and thats what I always think about when I hear ROT.
 def Main(Text_Input,Rotation):
     Output_String = ""
     Is_Caps = False
