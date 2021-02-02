@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
 #Project Draugr Variable ROT encoder made by Killer-Kat on github 1/31/2021
-#This is a version I have converted to a linux command line utility
 #Takes text and ROT value as arguments and encodes the text to the rotation value.
 #The name comes from the Scandinavian Undead, as undead are rotten and thats what I always think about when I hear ROT.
 import argparse
 parser = argparse.ArgumentParser()
 parser.add_argument("Text", help="The text to convert to rotated text, use quotes to encapsulate text with spaces")
 parser.add_argument("-r", "-Rotation", help="Rotation is The amount of spaces you want to rotate the text by the default is 13", type=int, default=13, choices=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ,11 ,12 ,13 ,14 ,15 ,16 ,17 ,18 ,19 ,20 ,21 ,22 ,23 ,24 ,25 ,26])
+parser.add_argument("-a", "-all", help="Run all possible rotation values for the text", action="store_true", default=False)
 args = parser.parse_args()
 
 def Main(Text_Input,Rotation):
@@ -84,4 +84,7 @@ def Main(Text_Input,Rotation):
         else:
             Output_String = Output_String + i
     print(Output_String)
-Main(args.Text,args.r)
+if args.a == True:
+	for i in range(26):
+		Main(args.Text,i)
+else: Main(args.Text,args.r)
