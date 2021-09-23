@@ -58,16 +58,13 @@ public:
             CPUChoiceMessage = "CPU Chose Rock";
             break;
         case 1:
-            CPUChoice = (rand() % 3);
+            CPUChoice = (rand() % 2);
             switch (CPUChoice) {
             case 0:
                 CPUChoiceMessage = "CPU Chose Rock";
                 break;
             case 1:
                 CPUChoiceMessage = "CPU Chose Paper";
-                break;
-            case 2:
-                CPUChoiceMessage = "CPU Chose Scissors";
                 break;
             default:
                 CPUChoiceMessage = "CPU Had an Invalid Choice\n";
@@ -83,7 +80,6 @@ public:
 };
 bool PlayGame(CPUData Opponent) {
 
-    //Win State 
     int PlayerChoice = 3; //3 is null 0 is Rock 1 is Paper and 2 is Scissors
     std::cout << "Make Your Move!\n";
     std::cin >> PlayerChoice;
@@ -171,7 +167,7 @@ bool PlayGame(CPUData Opponent) {
         if (gameScore > 0) { //Simple way to track game wins
             std::cout << "You have won " << gameScore << " times!\n";
         }
-        //add notes later
+        //passes the Computer player object to the game playing function so it can generate a game, if the Playgame function returns true it increases the score.
         if (PlayGame(CPUPlayer)) {
             gameScore++;
         }
@@ -218,5 +214,4 @@ bool PlayGame(CPUData Opponent) {
             break;
         }
         
-    }
-    
+    } 
