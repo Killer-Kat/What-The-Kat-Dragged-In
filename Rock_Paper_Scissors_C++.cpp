@@ -1,7 +1,7 @@
 #include <iostream>
 #include <cstdlib> // for random number gen
 #include <ctime> // gets time
-#include <windows.h>
+#include <windows.h> //Needed for clearing console window\
 
 void clear() {
     COORD topLeft = { 0, 0 };
@@ -23,12 +23,15 @@ class CPUData { //Creates a class so we can store the varibles we need in an obj
 public:
     int CPUChoice;
     std::string CPUChoiceMessage;
+    bool debugMessageToggle;
 
     void RandomOpponent() {
 
         //Random mode
         CPUChoice = (rand() % 3);
-        std::cout << "DEBUG: CPU CHOICE IS " << CPUChoice << "\n";
+        if (debugMessageToggle) {
+            std::cout << "DEBUG: CPU CHOICE (Random) IS " << CPUChoice << "\n";
+        }
         switch (CPUChoice) {
         case 0:
             CPUChoiceMessage = "CPU Chose Rock";
@@ -43,6 +46,39 @@ public:
             CPUChoiceMessage = "CPU Had an Invalid Choice\n";
         }
 
+    };
+    void RockLoverOpponent() {
+        //Rock mode
+        CPUChoice = (rand() % 3);
+        if (debugMessageToggle) {
+            std::cout << "DEBUG: CPU (Rocky) CHOICE IS " << CPUChoice << "\n";
+        }
+        switch (CPUChoice) {
+        case 0:
+            CPUChoiceMessage = "CPU Chose Rock";
+            break;
+        case 1:
+            CPUChoice = (rand() % 3);
+            switch (CPUChoice) {
+            case 0:
+                CPUChoiceMessage = "CPU Chose Rock";
+                break;
+            case 1:
+                CPUChoiceMessage = "CPU Chose Paper";
+                break;
+            case 2:
+                CPUChoiceMessage = "CPU Chose Scissors";
+                break;
+            default:
+                CPUChoiceMessage = "CPU Had an Invalid Choice\n";
+            }
+            break;
+        case 2:
+            CPUChoiceMessage = "CPU Chose Scissors";
+            break;
+        default:
+            CPUChoiceMessage = "CPU Had an Invalid Choice\n";
+        }
     };
 };
 bool PlayGame(CPUData Opponent) {
@@ -108,28 +144,79 @@ bool PlayGame(CPUData Opponent) {
         srand((unsigned)time(0));
 
         static int gameScore;
-        CPUData CPUPlayer;
-        
+        static int gameMode;
+        static bool debugMessage;
+        int optionsMenu; // used for the options menu switch
+        CPUData CPUPlayer; //Obj we use to hold the data for the CPU player for easy use between functions
+        CPUPlayer.debugMessageToggle = debugMessage;
+
         std::cout << "Wellcome to Rock Paper Scissors C++ Edition!\n";
         std::cout << "This app made by Killerkat on 9/22/2021 find me on Github or Checkout my blog!\n";
         std::cout << "0 for Rock 1 for Paper and 2 for Scissors\n";
-        std::cout << "Current Mode Random\n";
-        if (gameScore > 0) {
-            std::cout << "You have won " << gameScore << " times!\n";
+        
+        
+        switch (gameMode) { //Game mode selector
+        case 0:
+            CPUPlayer.RandomOpponent();
+            std::cout << "Current Mode Random\n";
+            break;
+        case 1:
+            CPUPlayer.RockLoverOpponent();
+            std::cout << "Current Mode Rock Lover\n";
+            break;
+        default:
+            break;
         }
 
-        //random
-        CPUPlayer.RandomOpponent();     
+        if (gameScore > 0) { //Simple way to track game wins
+            std::cout << "You have won " << gameScore << " times!\n";
+        }
         //add notes later
         if (PlayGame(CPUPlayer)) {
             gameScore++;
         }
         int pasta; //because its spaghetti code.
-        std::cout << "Play again? 1 = Yes 0 = No (Close Game)\n";
+        std::cout << "Play again? 1 = Yes 0 = No (Close Game) 2 = Open options menu\n";
         std::cin >> pasta;
-        if(pasta == 1){
+        switch (pasta){
+        case 0 :
+            break;
+        case 1 :
             clear();
             main();
+            break;
+        case 2:
+            clear();
+            std::cout << "OPTIONS MENU: Select an option\n 0 : Set opponent to Random mode.\n 1 : Set opponent to Rock Lover mode.\n 2 : Toggle Debug Mode.\n";
+            std::cin >> optionsMenu;
+            switch (optionsMenu) {
+            case 0:
+                gameMode = 0;
+                break;
+            case 1:
+                gameMode = 1;
+                break;
+            case 2 :
+                debugMessage = !debugMessage;
+                if (debugMessage) {
+                    std::cout << "Debug mode is on.\n";
+                }
+                else {
+                    std::cout << "Debug mode is off.\n";
+                }
+
+                break;
+            default :
+                break;
+            }
+            clear();
+            main();
+            break;
+        default:
+            clear();
+            main();
+            break;
         }
+        
     }
     
