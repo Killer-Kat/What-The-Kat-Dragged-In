@@ -19,6 +19,7 @@ function listenForClicks() {
         function beastNameToURL(beastName) {
             switch (beastName) {
                 case "Frog":
+                    console.log("frog");
                     return browser.runtime.getURL("beasts/frog.jpg");
                 case "Snake":
                     return browser.runtime.getURL("beasts/snake.jpg");

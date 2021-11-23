@@ -4,6 +4,10 @@
   "version": "1.0",
 
   "description": "Adds a red border to all webpages matching mozilla.org",
+  "permissions": [
+    "<all_urls>",
+    "tabs"
+  ],
 
   "icons": {
     "48": "icons/border-48"
@@ -13,7 +17,7 @@
   "content_scripts": [
     {
       "matches": [ "*://*.mozilla.org/*" ],
-      "js":  ["borderify.js"]
+      "js": [ "borderify.js" ]
     }
   ]
 }

@@ -1,0 +1,55 @@
+#KATS v 1.1
+ClearText()
+
+string user = GetUser()
+
+if user != "Sebastian"
+    Say("Unauthorized user please gtfo")
+    #todo Remote function call to object I have to say the
+    #name of the user
+end
+
+Print("K.A.T.S")# Killers Awesome Terminal Shell
+Print("---")
+Print("Welcome "+user)
+Print("Enter command")
+Print("'h' for help")
+Print("---")
+Print("")
+
+loop
+	var command = Input("> ")
+	Dispatch(command)
+end
+
+void Dispatch(string command)
+	if command == "h" or command == "H" or command == "help"
+        Help()
+    else if command == "boot"
+        BootFromFloppy()
+    else if command == "net"
+        var target = Input("Target: ")
+        var id = Connect(target)
+        Print("Connection id: " + id)
+    else if command == "info"
+        Info()
+    else if command == "Slurp" or command == "slurp"
+        Slurp() 
+    else if command == "Unlock" or command == "unlock" or command == "ul"
+        string Door2unlock = Input("Door: ")
+        Unlock(Door2unlock)
+    else if command == "cls" or command == "Cls" or command == "Clear" or command == "clear"
+        ClearText()
+	else
+		Print("Can't understand command '" + command + "'")
+        Print("Enter 'h' for help")
+	end
+end
+void Help()
+       Print("boot - Boot from floppy disk")
+       Print("net - connect to computer")
+       Print("info - System information")
+       Print("Cls - Clear the screen")
+       Print("Slurp - Slurp into the matrix")
+       Print("Unlock - Unlock a door")
+   end
