@@ -1,14 +1,11 @@
-#KATS v 1.1
+#KATS v 1.2
 ClearText()
-
 string user = GetUser()
-
 if user != "Sebastian"
     Say("Unauthorized user please gtfo")
     #todo Remote function call to object I have to say the
     #name of the user
 end
-
 Print("K.A.T.S")# Killers Awesome Terminal Shell
 Print("---")
 Print("Welcome "+user)
@@ -53,3 +50,10 @@ void Help()
        Print("Slurp - Slurp into the matrix")
        Print("Unlock - Unlock a door")
    end
+void RemoteUnlock(string Door)
+   #This sould allow for remote door unlocks,
+   #sadly cant copy paste and I cant just get the value from
+   #a method on an extractor
+   Unlock(Door)
+   Say("Test") 
+end
