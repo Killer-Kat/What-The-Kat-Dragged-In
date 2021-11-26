@@ -1,4 +1,5 @@
-#KATS v 1.2
+#KATS v 1.3
+array Files = GetMemories()
 ClearText()
 string user = GetUser()
 if user != "Sebastian"
@@ -34,9 +35,25 @@ void Dispatch(string command)
         Slurp() 
     else if command == "Unlock" or command == "unlock" or command == "ul"
         string Door2unlock = Input("Door: ")
-        Unlock(Door2unlock)
+        
     else if command == "cls" or command == "Cls" or command == "Clear" or command == "clear"
         ClearText()
+    else if command == "ls"
+        ListFiles()
+    else if command == "nf"
+       string fn = Input("Filename: ")
+        NewFile(fn)
+    else if command == "write"
+        string f2w = Input("Which File?")
+        if HasMemory(f2w) == true
+           string t2w = Input("Write what? : ")
+            write2File(f2w, t2w)
+            else
+                Print("ERROR File does not exist")
+            end
+    else if command == "rf"
+        string f2r = Input("Which file?")
+        readFromFile(f2r)
 	else
 		Print("Can't understand command '" + command + "'")
         Print("Enter 'h' for help")
@@ -54,6 +71,28 @@ void RemoteUnlock(string Door)
    #This sould allow for remote door unlocks,
    #sadly cant copy paste and I cant just get the value from
    #a method on an extractor
-   Unlock(Door)
+   
    Say("Test") 
+end
+
+void NewFile(Filename)
+    Append(Files, Filename)
+    SaveMemory(Filename, "")
+end
+
+void ListFiles()
+    if Files[0] != "" ## this check throws an exception becuase its null
+        loop x in Files
+            Print(x)
+            end
+    else 
+        Print("No files to list")
+    end 
+end
+void write2File(string fileName, string text2write)
+    SaveMemory(fileName, text2write)
+end
+void readFromFile(file2read)
+    string fd = LoadMemory(file2read)
+    Print(fd)
 end
