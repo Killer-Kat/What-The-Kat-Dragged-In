@@ -1,4 +1,4 @@
-#KATS v 1.3
+#KATS v 1.4
 array Files = GetMemories()
 ClearText()
 string user = GetUser()
@@ -54,6 +54,13 @@ void Dispatch(string command)
     else if command == "rf"
         string f2r = Input("Which file?")
         readFromFile(f2r)
+    else if command == "rm"
+        string f2d = Input("Which file?")
+        if HasMemory(f2d) != false
+            deleteFile(f2d)
+        else
+            Print("ERROR File does not exist")
+        end
 	else
 		Print("Can't understand command '" + command + "'")
         Print("Enter 'h' for help")
@@ -68,11 +75,8 @@ void Help()
        Print("Unlock - Unlock a door")
    end
 void RemoteUnlock(string Door)
-   #This sould allow for remote door unlocks,
-   #sadly cant copy paste and I cant just get the value from
-   #a method on an extractor
-   
-   Say("Test") 
+#Removed for further rework due to "Computer3" not containing a hard drive.
+#Will add connection to comp3 in future
 end
 
 void NewFile(Filename)
@@ -81,7 +85,7 @@ void NewFile(Filename)
 end
 
 void ListFiles()
-    if Files[0] != "" ## this check throws an exception becuase its null
+    if Files[0] != "" ## this check throws an exception becuase its null instead of "" and as far as I know SPRAK does not have a null syntax
         loop x in Files
             Print(x)
             end
@@ -95,4 +99,8 @@ end
 void readFromFile(file2read)
     string fd = LoadMemory(file2read)
     Print(fd)
+end
+void deleteFile(file2delete)
+   EraseMemory(file2delete)
+   Files = GetMemories() 
 end
