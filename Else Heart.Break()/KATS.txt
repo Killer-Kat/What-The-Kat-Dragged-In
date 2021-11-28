@@ -1,4 +1,4 @@
-#KATS v 1.4
+#KATS v 1.5
 array Files = GetMemories()
 ClearText()
 string user = GetUser()
@@ -35,27 +35,28 @@ void Dispatch(string command)
         Slurp() 
     else if command == "Unlock" or command == "unlock" or command == "ul"
         string Door2unlock = Input("Door: ")
+        Unlock(Door2unlock)
         
     else if command == "cls" or command == "Cls" or command == "Clear" or command == "clear"
         ClearText()
     else if command == "ls"
         ListFiles()
-    else if command == "nf"
+    else if command == "NewFile" or command == "newfile" or command == "nf"
        string fn = Input("Filename: ")
         NewFile(fn)
-    else if command == "write"
-        string f2w = Input("Which File?")
+    else if command == "write" or command == "Write" or command == "wf"
+        string f2w = Input("Which File? ")
         if HasMemory(f2w) == true
            string t2w = Input("Write what? : ")
             write2File(f2w, t2w)
             else
                 Print("ERROR File does not exist")
             end
-    else if command == "rf"
-        string f2r = Input("Which file?")
+    else if command == "Read" or command == "read" or command == "rf"
+        string f2r = Input("Which file? ")
         readFromFile(f2r)
-    else if command == "rm"
-        string f2d = Input("Which file?")
+    else if command == "Remove" or command == "remove" or command == "rm"
+        string f2d = Input("Which file? ")
         if HasMemory(f2d) != false
             deleteFile(f2d)
         else
@@ -73,10 +74,13 @@ void Help()
        Print("Cls - Clear the screen")
        Print("Slurp - Slurp into the matrix")
        Print("Unlock - Unlock a door")
+	   Print("NewFile, nf - Make a new file")
+	   Print("Write, wf - Write to a file")
+	   Print("Read, rf = Read from a file")
+	   Print("Remove, rm = delete a file") # screen can only display 13 lines at once. we need one line for the prompt
    end
 void RemoteUnlock(string Door)
-#Removed for further rework due to "Computer3" not containing a hard drive.
-#Will add connection to comp3 in future
+    Unlock(Door)#readded, use a screw driver to add the Door api to the computer if needed
 end
 
 void NewFile(Filename)
