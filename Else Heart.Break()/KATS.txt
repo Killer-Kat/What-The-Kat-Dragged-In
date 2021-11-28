@@ -1,4 +1,4 @@
-#KATS v 1.5
+#KATS v 1.6
 array Files = GetMemories()
 ClearText()
 string user = GetUser()
@@ -8,11 +8,11 @@ if user != "Sebastian"
     #name of the user
 end
 Print("K.A.T.S")# Killers Awesome Terminal Shell
-Print("---")
+Print("-------")
 Print("Welcome "+user)
 Print("Enter command")
 Print("'h' for help")
-Print("---")
+Print("Boot Time "+GetTime())
 Print("")
 
 loop
@@ -62,6 +62,8 @@ void Dispatch(string command)
         else
             Print("ERROR File does not exist")
         end
+    else if command == "Time" or command == "time" or command == "gt"
+        Print(GetTime()) 
 	else
 		Print("Can't understand command '" + command + "'")
         Print("Enter 'h' for help")
@@ -78,6 +80,7 @@ void Help()
 	   Print("Write, wf - Write to a file")
 	   Print("Read, rf = Read from a file")
 	   Print("Remove, rm = delete a file") # screen can only display 13 lines at once. we need one line for the prompt
+    Print("Time, gt - Returns the Time")
    end
 void RemoteUnlock(string Door)
     Unlock(Door)#readded, use a screw driver to add the Door api to the computer if needed
@@ -107,4 +110,8 @@ end
 void deleteFile(file2delete)
    EraseMemory(file2delete)
    Files = GetMemories() 
+end
+string GetTime() #Returns the current (ingame) time as a formated string
+   string time = GetHour()+":"+GetMinute()
+   return time 
 end
