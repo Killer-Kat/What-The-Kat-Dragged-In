@@ -1,0 +1,21 @@
+#KillerKats single element array script
+string newElement
+array myArray
+loop
+    newElement = Input(">")
+    if elmCheck() == true
+    Append(myArray, newElement)
+end
+Print(myArray)
+end
+
+bool elmCheck()
+    
+    loop x in myArray
+        Print(x)
+        if x == newElement
+            return false
+        end
+    end
+    return true
+end
