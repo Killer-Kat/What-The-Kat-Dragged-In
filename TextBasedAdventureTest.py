@@ -22,6 +22,7 @@ class Item:
     
 #Global vars
 CurrentRoomID = 0
+Inventory = []
 
 #Items
 defaultItem = Item("default item", "An incredibly default item, you bask in the glow of its defaultness!")
@@ -43,7 +44,12 @@ def TextParser(text, room):
         match verb:
             case "Look":
                 if noun.lower() == "around": ### what? it shoud load the room by default and also if you specify it.
-                    print("You see " + room.desc + " and : "+ room.contents[0].name)
+                    print("You see " + room.desc + " and : ")#+ room.contents[0].name
+                    if len(room.contents) == 0:
+                        print("Nothing")
+                    else:
+                        for i in room.contents:
+                            print(i.name)
                 else: 
                     parserLookHint = 0
                     for i in room.contents:
@@ -53,7 +59,12 @@ def TextParser(text, room):
                             break
                     if parserLookHint == 0:
                          print("Look at what? To look at your surroundings use Look : Around")
-                    
+            case "Take":
+                for i in room.contents:
+                    if noun == i.name.lower() :
+                        room.contents.remove(i)
+                        Inventory.append(i)
+                        print("You take the " + i.name)
             case _: 
                 print("The parser didnt recognize your verb, please try agian!")
     except IndexError:
