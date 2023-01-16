@@ -43,7 +43,7 @@ CurrentRoomID = 0
 Inventory = []
 
 #Items
-defaultItem = Item("default item", "An incredibly default item, you bask in the glow of its defaultness!", True)
+defaultItem = Item("Default Item", "An incredibly default item, you bask in the glow of its defaultness!", True)
 seriousItem = Item("Serious Item", "An incredibly serious item, you feel the aura of its seriousness!", True)
 seriousTable = Container("Serious Table", "The most serious table you have ever seen!", False)
 seriousTable.contents.append(seriousItem)
@@ -75,6 +75,13 @@ def TextParser(text, room):
                     else:
                         for i in room.contents:
                             print(i.name)
+                            if isinstance(i, Container):
+                                print("It contains:")
+                                if len(i.contents) == 0:
+                                    print("Nothing")
+                                else:
+                                    for c in i.contents:
+                                        print(" " + c.name)
                     if room.northRoom is not None:
                         print("To the north there is: " + room.northRoom.name)
                     if room.eastRoom is not None:
@@ -99,7 +106,7 @@ def TextParser(text, room):
                                     print("Nothing")
                                 else:
                                     for c in i.contents:
-                                        print(c.name)
+                                        print(" " + c.name)
                             break
                     for i in Inventory:
                         if noun == i.name.lower():
@@ -134,6 +141,7 @@ def TextParser(text, room):
                                 print("You take the " + x + " from the " + noun)
                             else: print(x + " not found in this container.")
                             break
+                        break
                     else: print("Container not found, try Loot : Container Name")
             case "fill":
                 for i in room.contents:
@@ -144,7 +152,7 @@ def TextParser(text, room):
                                 i.contents.append(y)
                                 Inventory.remove(y)
                                 print("You put the " + x + " in the " + noun)
-                            else: print("You dont have an " + x)
+                            else: print("You dont have a " + x)
                             break
                     else: print("Container not found, try Fill : Container Name")
             case "go": 
@@ -198,6 +206,7 @@ def Help():
     print("Go, use Go and then one of the 4 cardinal directions to move in that direction. Provided there is something in that direction to move towards.")
     print("Take, use Take and then the name of an item to pick up that item, for items in containers you need to use Loot : Container Name")
     print("Drop, what do you think it does? use Drop : Item Name to drop an item in the current room.")
+    print("Fill, used to put items inside of containers. use Fill : Container Name")
     print("There might be some other verbs, but I'll give you a Hint and say they might not be as useful as you would hope.")
 
 Main("Wellcome! To give commands use the format VERB: NOUN, the : is required. Try Help : Please for a list of commands")
