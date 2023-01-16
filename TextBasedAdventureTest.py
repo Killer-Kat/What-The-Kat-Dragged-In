@@ -1,6 +1,7 @@
 #Text based adventure game framework? 
 #I love text based adventure games, despite never living in a time before modern game engines.
 #I have a passion to learn and love making things so please enjoy!
+#Made by Killer Kat on github, January 2023
 import random #lul so random XD 
 
 class Room:
@@ -31,6 +32,7 @@ class Item:
 
     
 #Global vars
+score = 0
 CurrentRoomID = 0
 Inventory = []
 
@@ -53,11 +55,11 @@ def TextParser(text, room):
     global currentRoom
     try:
         split1 = text.split(":")
-        verb = split1[0].strip()
+        verb = split1[0].strip().lower()
         noun = split1[1].strip().lower()
         #print(verb, noun) #for debug, del this line later
         match verb:
-            case "Look":
+            case "look":
                 if noun.lower() == "around": ### what? it shoud load the room by default and also if you specify it.
                     print("You see " + room.desc + " and : ")#+ room.contents[0].name
                     if len(room.contents) == 0:
@@ -92,7 +94,7 @@ def TextParser(text, room):
                     if parserLookHint == 0:
                          print("Look at what? To look at your surroundings use Look : Around")
                          print("to check your inventory use Look : Inventory")
-            case "Take":
+            case "take":
                 for i in room.contents:
                     if noun == i.name.lower():
                         if i.canTake == True :
@@ -100,7 +102,13 @@ def TextParser(text, room):
                             Inventory.append(i)
                             print("You take the " + i.name)
                         else: print ("You cant take the " + i.name)
-            case "Go": 
+            case "drop":
+                for i in Inventory:
+                    if noun == i.name.lower():
+                        Inventory.remove(i)
+                        room.contents.append(i)
+                        print("You drop the " + i.name)
+            case "go": 
                 if noun == "north" or noun == "n":
                     if room.northRoom is not False:
                          currentRoom = room.northRoom
@@ -118,7 +126,7 @@ def TextParser(text, room):
                     if room.westRoom is not None:
                         currentRoom = room.westRoom
                     else: print("You cannot go west here.")
-            case "Hint":
+            case "hint":
                 Hint()
             case _: 
                 print("The parser didnt recognize your verb, please try again!")
@@ -127,12 +135,12 @@ def TextParser(text, room):
     
   
 def Main(promt):
-    print(promt)
+    print("Score: " + str(score) + " " + promt)
     TextParser(input(">"), currentRoom)
     Main(currentRoom.name)
 
 def Hint():
-    hintsList = ["Try going weast.", "XYZZY", "You cant get ye flask!", "You can get a hint by using the Hint verb!", "It's an open source game, just look at the code!", "Try calling our support hotline at 1-800-555-KILLERKAT", "Control alt delete", "Ask again later"]
+    hintsList = ["Try going weast.", "XYZZY", "You cant get ye flask!", "You can get a hint by using the Hint verb!", "It's an open source game, just look at the code!", "Try calling our support hotline at 1-800-555-KILLERKAT", "Control alt delete", "Ask again later", "Have you listened to my podcast The CyberKat Cafe? Check out our website cyberkatcafe.com"]
     print(random.choice(hintsList))
 
 Main("Wellcome! To give commands use the format VERB: NOUN")
