@@ -1,6 +1,8 @@
-#Text based adventure test? 
-#Not really sure what I want to do but I wont let that stop me from trying.
-#I have a passion to learn!
+#Text based adventure game framework? 
+#I love text based adventure games, despite never living in a time before modern game engines.
+#I have a passion to learn and love making things so please enjoy!
+import random #lul so random XD 
+
 class Room:
     def __init__(self, name, desc, roomID, northRoom=None, eastRoom=None, southRoom=None, westRoom=None):
         self.name = name
@@ -116,6 +118,8 @@ def TextParser(text, room):
                     if room.westRoom is not None:
                         currentRoom = room.westRoom
                     else: print("You cannot go west here.")
+            case "Hint":
+                Hint()
             case _: 
                 print("The parser didnt recognize your verb, please try again!")
     except IndexError:
@@ -127,6 +131,9 @@ def Main(promt):
     TextParser(input(">"), currentRoom)
     Main(currentRoom.name)
 
+def Hint():
+    hintsList = ["Try going weast.", "XYZZY", "You cant get ye flask!", "You can get a hint by using the Hint verb!", "It's an open source game, just look at the code!", "Try calling our support hotline at 1-800-555-KILLERKAT", "Control alt delete", "Ask again later"]
+    print(random.choice(hintsList))
 
 Main("Wellcome! To give commands use the format VERB: NOUN")
 
