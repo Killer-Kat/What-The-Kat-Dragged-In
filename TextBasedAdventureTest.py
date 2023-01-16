@@ -29,6 +29,12 @@ class Item:
     def __str__(self):
         return f"{self.name}: {self.desc}"
 
+class Container(Item):
+    def __init__(self, name, desc, canTake):
+        super().__init__(name,desc, canTake)
+        
+        self.contents = []
+
 
     
 #Global vars
@@ -38,14 +44,16 @@ Inventory = []
 
 #Items
 defaultItem = Item("default item", "An incredibly default item, you bask in the glow of its defaultness!", True)
-seriousTable = Item("Serious Table", "The most serious table you have ever seen!", False)
+seriousItem = Item("Serious Item", "An incredibly serious item, you feel the aura of its seriousness!", True)
+seriousTable = Container("Serious Table", "The most serious table you have ever seen!", False)
+seriousTable.contents.append(seriousItem)
 #Rooms
 defaultRoom = Room("Default Room", "A strikingly default room with a real sense of defaultness about it",0,)
 defaultRoom.contents.append(defaultItem)
 seriousRoom = Room("Serious Room", "An incredibly serious room, the most serious room you have ever seen",1)
 seriousRoom.contents.append(seriousTable)
 
-#Room connections? 
+#Room connections
 defaultRoom.northRoom = seriousRoom
 seriousRoom.southRoom = defaultRoom
 #Need to define this after rooms or it doesnt work (wait or does it?)
@@ -61,7 +69,7 @@ def TextParser(text, room):
         match verb:
             case "look":
                 if noun.lower() == "around": ### what? it shoud load the room by default and also if you specify it.
-                    print("You see " + room.desc + " and : ")#+ room.contents[0].name
+                    print("You see " + room.desc + " and : ")
                     if len(room.contents) == 0:
                         print("Nothing")
                     else:
@@ -85,6 +93,10 @@ def TextParser(text, room):
                         if noun == i.name.lower() :
                             print(i.desc)
                             parserLookHint = 1
+                            if isinstance(i, Container):
+                                print("It contains:")
+                                for c in i.contents:
+                                    print(c.name)
                             break
                     for i in Inventory:
                         if noun == i.name.lower():
@@ -110,7 +122,7 @@ def TextParser(text, room):
                         print("You drop the " + i.name)
             case "go": 
                 if noun == "north" or noun == "n":
-                    if room.northRoom is not False:
+                    if room.northRoom is not None:
                          currentRoom = room.northRoom
                     else: print("You cannot go north here.")
                     
@@ -141,9 +153,13 @@ def Main(promt):
     TextParser(input(">"), currentRoom)
     Main(currentRoom.name)
 
+def ScoreHandler(x):
+    global score
+    score = score + x
+
 def Hint():
     hintsList = ["Try going weast.", "XYZZY", "You cant get ye flask!", "You can get a hint by using the Hint verb!", "It's an open source game, just look at the code!", "Try calling our support hotline at 1-800-555-KILLERKAT", "Control alt delete", "Ask again later", "Have you listened to my podcast The CyberKat Cafe? Check out our website cyberkatcafe.com", "That's not a bug, it's a feature!"]
     print(random.choice(hintsList))
 
-Main("Wellcome! To give commands use the format VERB: NOUN")
+Main("Wellcome! To give commands use the format VERB: NOUN, the : is required.")
 
