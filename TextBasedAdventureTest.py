@@ -95,8 +95,11 @@ def TextParser(text, room):
                             parserLookHint = 1
                             if isinstance(i, Container):
                                 print("It contains:")
-                                for c in i.contents:
-                                    print(c.name)
+                                if len(i.contents) == 0:
+                                    print("Nothing")
+                                else:
+                                    for c in i.contents:
+                                        print(c.name)
                             break
                     for i in Inventory:
                         if noun == i.name.lower():
@@ -120,6 +123,30 @@ def TextParser(text, room):
                         Inventory.remove(i)
                         room.contents.append(i)
                         print("You drop the " + i.name)
+            case "loot":
+                for i in room.contents:
+                    if noun == i.name.lower():
+                        x = input("Loot what from " + noun + "? ")
+                        for y in i.contents:
+                            if y.name.lower() == x.lower() :
+                                i.contents.remove(y)
+                                Inventory.append(y)
+                                print("You take the " + x + " from the " + noun)
+                            else: print(x + " not found in this container.")
+                            break
+                    else: print("Container not found, try Loot : Container Name")
+            case "fill":
+                for i in room.contents:
+                    if noun == i.name.lower():
+                        x = input("Fill " + noun + " with what? ")
+                        for y in Inventory:
+                            if y.name.lower() == x.lower() :
+                                i.contents.append(y)
+                                Inventory.remove(y)
+                                print("You put the " + x + " in the " + noun)
+                            else: print("You dont have an " + x)
+                            break
+                    else: print("Container not found, try Fill : Container Name")
             case "go": 
                 if noun == "north" or noun == "n":
                     if room.northRoom is not None:
@@ -140,6 +167,12 @@ def TextParser(text, room):
                     else: print("You cannot go west here.")
             case "hint":
                 Hint()
+            case "help":
+                if noun == "please":
+                    print("Thank you for being polite.")
+                    Help()
+                else:
+                    print("You should be more polite!")
             case "xyzzy":
                 print("A hollow voice says, Nerd!")
             case _: 
@@ -160,6 +193,12 @@ def ScoreHandler(x):
 def Hint():
     hintsList = ["Try going weast.", "XYZZY", "You cant get ye flask!", "You can get a hint by using the Hint verb!", "It's an open source game, just look at the code!", "Try calling our support hotline at 1-800-555-KILLERKAT", "Control alt delete", "Ask again later", "Have you listened to my podcast The CyberKat Cafe? Check out our website cyberkatcafe.com", "That's not a bug, it's a feature!"]
     print(random.choice(hintsList))
+def Help():
+    print("Look, use Look : Around to examine your surroundings or Look : Something to look at something in more detail, to see your inventory use Look : Inventory")
+    print("Go, use Go and then one of the 4 cardinal directions to move in that direction. Provided there is something in that direction to move towards.")
+    print("Take, use Take and then the name of an item to pick up that item, for items in containers you need to use Loot : Container Name")
+    print("Drop, what do you think it does? use Drop : Item Name to drop an item in the current room.")
+    print("There might be some other verbs, but I'll give you a Hint and say they might not be as useful as you would hope.")
 
-Main("Wellcome! To give commands use the format VERB: NOUN, the : is required.")
+Main("Wellcome! To give commands use the format VERB: NOUN, the : is required. Try Help : Please for a list of commands")
 
