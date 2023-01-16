@@ -2,19 +2,27 @@
 #Not really sure what I want to do but I wont let that stop me from trying.
 #I have a passion to learn!
 class Room:
-    def __init__(self, name, desc, roomID):
+    def __init__(self, name, desc, roomID, northRoom=None, eastRoom=None, southRoom=None, westRoom=None):
         self.name = name
         self.desc = desc
         self.roomID = roomID
         self.contents = []
+        #These are the rooms that are connected to this room, IE southRoom is the room to the south of this one
+        self.northRoom = northRoom
+        self.eastroom = eastRoom
+        self.southRoom = southRoom
+        self.westRoom = westRoom
+
+        
     
     def __str__(self):
         return f"{self.name}: {self.desc}"
 
 class Item:
-    def __init__(self, name, desc):
+    def __init__(self, name, desc, canTake):
         self.name = name
         self.desc = desc
+        self.canTake = canTake
     def __str__(self):
         return f"{self.name}: {self.desc}"
 
@@ -25,15 +33,16 @@ CurrentRoomID = 0
 Inventory = []
 
 #Items
-defaultItem = Item("default item", "An incredibly default item, you bask in the glow of its defaultness!")
+defaultItem = Item("default item", "An incredibly default item, you bask in the glow of its defaultness!", True)
+seriousTable = Item("Serious Table", "The most serious table you have ever seen!", False)
 #Rooms
 defaultRoom = Room("Default Room", "A strikingly default room with a real sense of defaultness about it",0,)
 defaultRoom.contents.append(defaultItem)
+seriousRoom = Room("Serious Room", "An incredibly serious room, the most serious room you have ever seen",1)
+seriousRoom.contents.append(seriousTable)
 
-#No idea if this will work, googled it but found nothing
-allItems = [defaultItem] # Wait I might not even need this!
 #Need to define this after rooms or it doesnt work (wait or does it?)
-currentRoom = defaultRoom
+currentRoom = seriousRoom
 
 def TextParser(text, room):
     try:
@@ -51,6 +60,7 @@ def TextParser(text, room):
                         for i in room.contents:
                             print(i.name)
                 elif noun.lower() == "inventory":
+                    print("You have:")
                     for i in Inventory:
                         print(i.name)
                 else: 
@@ -70,10 +80,12 @@ def TextParser(text, room):
                          print("to check your inventory use Look : Inventory")
             case "Take":
                 for i in room.contents:
-                    if noun == i.name.lower() :
-                        room.contents.remove(i)
-                        Inventory.append(i)
-                        print("You take the " + i.name)
+                    if noun == i.name.lower():
+                        if i.canTake == True :
+                            room.contents.remove(i)
+                            Inventory.append(i)
+                            print("You take the " + i.name)
+                        else: print ("You cant take the " + i.name)
             case _: 
                 print("The parser didnt recognize your verb, please try again!")
     except IndexError:
@@ -83,7 +95,7 @@ def TextParser(text, room):
 def Main(promt):
     print(promt)
     TextParser(input(">"), currentRoom)
-    Main(defaultRoom)
+    Main(currentRoom)
 
 Main("Wellcome! To give commands use the format VERB: NOUN")
 
