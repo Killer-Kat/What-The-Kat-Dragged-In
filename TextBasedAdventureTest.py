@@ -9,7 +9,7 @@ class Room:
         self.contents = []
         #These are the rooms that are connected to this room, IE southRoom is the room to the south of this one
         self.northRoom = northRoom
-        self.eastroom = eastRoom
+        self.eastRoom = eastRoom
         self.southRoom = southRoom
         self.westRoom = westRoom
 
@@ -41,10 +41,14 @@ defaultRoom.contents.append(defaultItem)
 seriousRoom = Room("Serious Room", "An incredibly serious room, the most serious room you have ever seen",1)
 seriousRoom.contents.append(seriousTable)
 
+#Room connections? 
+defaultRoom.northRoom = seriousRoom
+seriousRoom.southRoom = defaultRoom
 #Need to define this after rooms or it doesnt work (wait or does it?)
-currentRoom = seriousRoom
+currentRoom = defaultRoom
 
 def TextParser(text, room):
+    global currentRoom
     try:
         split1 = text.split(":")
         verb = split1[0].strip()
@@ -59,6 +63,14 @@ def TextParser(text, room):
                     else:
                         for i in room.contents:
                             print(i.name)
+                    if room.northRoom is not None:
+                        print("To the north there is: " + room.northRoom.name)
+                    if room.eastRoom is not None:
+                        print("To the east there is: " + room.eastRoom.name)
+                    if room.southRoom is not None:
+                        print("To the south there is: " + room.southRoom.name)
+                    if room.westRoom is not None:
+                        print("To the west there is: " + room.westRoom.name)
                 elif noun.lower() == "inventory":
                     print("You have:")
                     for i in Inventory:
@@ -86,6 +98,24 @@ def TextParser(text, room):
                             Inventory.append(i)
                             print("You take the " + i.name)
                         else: print ("You cant take the " + i.name)
+            case "Go": 
+                if noun == "north" or noun == "n":
+                    if room.northRoom is not False:
+                         currentRoom = room.northRoom
+                    else: print("You cannot go north here.")
+                    
+                elif noun == "east" or noun == "e":
+                    if room.eastRoom is not None:
+                        currentRoom = room.eastRoom
+                    else: print("You cannot go east here.")
+                elif noun == "south" or noun == "s":
+                    if room.southRoom is not None:
+                        currentRoom = room.southRoom
+                    else: print("You cannot go south here.")
+                elif noun == "west" or noun == "w":
+                    if room.westRoom is not None:
+                        currentRoom = room.westRoom
+                    else: print("You cannot go west here.")
             case _: 
                 print("The parser didnt recognize your verb, please try again!")
     except IndexError:
@@ -95,7 +125,8 @@ def TextParser(text, room):
 def Main(promt):
     print(promt)
     TextParser(input(">"), currentRoom)
-    Main(currentRoom)
+    Main(currentRoom.name)
+
 
 Main("Wellcome! To give commands use the format VERB: NOUN")
 
