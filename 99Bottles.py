@@ -7,7 +7,7 @@ def Bottles(x,y):
     contents = y
     for i in range(bottles):
         chance = random.randrange(0,(bottles+1),1) #Gets a random number with the upper bound of the current number of bottles so the chance increases as the amount of bottles decreases.
-        if chance == bottles:
+        if chance == bottles and chance >= 6:
             print("You get alcohol poisioning from all the " + contents + " and pass out.")
             return
         print( str(bottles) + " bottles of " + str(contents) + " on the wall " + str(bottles) + " of " + str(contents) + " take one down pass it around " + str((bottles -1)) + "  bottles of " + str(contents) + " on the wall!")
